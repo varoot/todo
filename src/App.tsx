@@ -58,7 +58,7 @@ const App: FC = () => {
         </Tabs>
       </Paper>
       {tasks.map(task => (
-        <TodoCard key={task.id} task={task} />
+        <TodoCard key={task.id} isSelected={task.id === '1'} task={task} />
       ))}
       <Fab
         className={classes.mainButton}
