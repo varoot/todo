@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, FC, useState } from 'react';
 import TodoDrawer from './components/TodoDrawer';
+import TodoTask from './types/TodoTask';
 
 const useStyles = makeStyles(theme => ({
   mainButton: {
@@ -21,6 +22,22 @@ const useStyles = makeStyles(theme => ({
 const App: FC = () => {
   const classes = useStyles();
 
+  const [tasks, setTasks] = useState<TodoTask[]>([
+    {
+      id: '1',
+      title: 'Test Task #1',
+      description: 'Some text here',
+      isDone: false,
+      createdAt: '2020-01-13',
+    },
+    {
+      id: '2',
+      title: 'Test Task #2',
+      description: 'Some text here',
+      isDone: true,
+      createdAt: '2020-01-13',
+    },
+  ]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const switchTab = (_: ChangeEvent<{}>, newTab: number) =>
