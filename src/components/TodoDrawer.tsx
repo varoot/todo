@@ -21,11 +21,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TodoDrawer: FC = props => {
+interface TodoDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const TodoDrawer: FC<TodoDrawerProps> = props => {
+  const { isOpen, onClose } = props;
   const classes = useStyles(props);
 
   return (
-    <Drawer anchor="right" classes={{ paper: classes.drawer }} open>
+    <Drawer anchor="right" classes={{ paper: classes.drawer }} open={isOpen}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">Add Task</Typography>
@@ -42,7 +48,9 @@ const TodoDrawer: FC = props => {
           variant="outlined"
         />
         <div className={classes.buttonContainer}>
-          <Button color="primary">Cancel</Button>
+          <Button color="primary" onClick={onClose}>
+            Cancel
+          </Button>
           <Button color="primary" variant="contained">
             Save
           </Button>

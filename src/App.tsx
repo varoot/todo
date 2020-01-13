@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 const App: FC = () => {
   const classes = useStyles();
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const switchTab = (_: ChangeEvent<{}>, newTab: number) =>
     setSelectedTab(newTab);
@@ -38,10 +39,18 @@ const App: FC = () => {
           <Tab label="Done" />
         </Tabs>
       </Paper>
-      <Fab className={classes.mainButton} color="primary" aria-label="add">
+      <Fab
+        className={classes.mainButton}
+        color="primary"
+        onClick={() => setIsDrawerOpen(true)}
+        aria-label="add"
+      >
         <AddIcon />
       </Fab>
-      <TodoDrawer />
+      <TodoDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
     </div>
   );
 };
