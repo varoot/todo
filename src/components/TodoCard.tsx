@@ -22,7 +22,10 @@ const useStyles = makeStyles(
     },
     selected: {
       '& $content': {
-        boxShadow: `inset 5px 0 ${theme.palette.secondary.main}`,
+        boxShadow: `inset 1px 0 ${theme.palette.secondary.main}`,
+        [theme.breakpoints.up('sm')]: {
+          boxShadow: `inset 5px 0 ${theme.palette.secondary.main}`,
+        },
       },
     },
   }),
