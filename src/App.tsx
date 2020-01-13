@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, FC, useState } from 'react';
+import TodoDrawer from './components/TodoDrawer';
 
 const useStyles = makeStyles(theme => ({
   mainButton: {
@@ -40,6 +41,7 @@ const App: FC = () => {
       <Fab className={classes.mainButton} color="primary" aria-label="add">
         <AddIcon />
       </Fab>
+      <TodoDrawer />
     </div>
   );
 };
