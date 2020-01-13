@@ -1,3 +1,4 @@
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -8,8 +9,13 @@ import TodoTask from '../types/TodoTask';
 const useStyles = makeStyles(
   theme => ({
     root: {
+      borderRadius: theme.shape.borderRadius,
       margin: theme.spacing(3),
       overflow: 'hidden',
+
+      '&:focus $content': {
+        backgroundColor: theme.palette.action.hover,
+      },
     },
     content: {
       padding: theme.spacing(3),
@@ -33,15 +39,18 @@ const TodoCard: FC<TodoCardProps> = props => {
   const { isSelected, onClick, task } = props;
   const classes = useStyles(props);
   return (
-    <Paper
+    <ButtonBase
       className={clsx(classes.root, { [classes.selected]: isSelected })}
+      component={Paper}
       onClick={() => onClick(task.id)}
+      role="checkbox"
+      aria-checked={isSelected}
     >
       <div className={classes.content}>
         <Typography variant="body1">{task.title}</Typography>
         <Typography variant="caption">{task.description}</Typography>
       </div>
-    </Paper>
+    </ButtonBase>
   );
 };
 

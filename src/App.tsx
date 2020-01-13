@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, FC, useState } from 'react';
+import uuidV1 from 'uuid/v1';
 import TodoCard from './components/TodoCard';
 import TodoDrawer from './components/TodoDrawer';
 import TodoTask from './types/TodoTask';
@@ -56,6 +57,18 @@ const App: FC = () => {
     setSelectedIds(updatedIds);
   };
 
+  const addTask = (taskData: Pick<TodoTask, 'title' | 'description'>) => {
+    setTasks([
+      ...tasks,
+      {
+        ...taskData,
+        id: uuidV1(),
+        createdAt: '',
+        isDone: false,
+      },
+    ]);
+  };
+
   return (
     <div>
       <AppBar position="static">
@@ -88,6 +101,7 @@ const App: FC = () => {
       <TodoDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        onSave={addTask}
       />
     </div>
   );

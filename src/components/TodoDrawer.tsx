@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import React, { FC } from 'react';
+import React, { ChangeEventHandler, FC, useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -24,34 +24,66 @@ const useStyles = makeStyles(theme => ({
 interface TodoDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  onSave: (data: { title: string; description: string }) => void;
 }
 
 const TodoDrawer: FC<TodoDrawerProps> = props => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onSave } = props;
   const classes = useStyles(props);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = event =>
+    setTitle(event.target.value);
+
+  const updateDescription: ChangeEventHandler<HTMLInputElement> = event =>
+    setDescription(event.target.value);
 
   return (
-    <Drawer anchor="right" classes={{ paper: classes.drawer }} open={isOpen}>
+    <Drawer
+      anchor="right"
+      classes={{ paper: classes.drawer }}
+      SlideProps={{
+        onEnter: () => {
+          setTitle('');
+          setDescription('');
+        },
+      }}
+      open={isOpen}
+    >
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">Add Task</Typography>
         </Toolbar>
       </AppBar>
       <div className={classes.drawerContent}>
-        <TextField fullWidth label="Title" margin="normal" variant="outlined" />
+        <TextField
+          fullWidth
+          label="Title"
+          margin="normal"
+          onChange={updateTitle}
+          value={title}
+          variant="outlined"
+        />
         <TextField
           fullWidth
           multiline
           label="Description"
           margin="normal"
+          onChange={updateDescription}
           rows="4"
+          value={description}
           variant="outlined"
         />
         <div className={classes.buttonContainer}>
           <Button color="primary" onClick={onClose}>
             Cancel
           </Button>
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            onClick={() => onSave({ title, description })}
+            variant="contained"
+          >
             Save
           </Button>
         </div>
