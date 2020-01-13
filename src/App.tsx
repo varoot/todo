@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, FC, useState } from 'react';
+import TodoCard from './components/TodoCard';
 import TodoDrawer from './components/TodoDrawer';
 import TodoTask from './types/TodoTask';
 
@@ -56,6 +57,9 @@ const App: FC = () => {
           <Tab label="Done" />
         </Tabs>
       </Paper>
+      {tasks.map(task => (
+        <TodoCard key={task.id} task={task} />
+      ))}
       <Fab
         className={classes.mainButton}
         color="primary"
