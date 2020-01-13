@@ -9,13 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import React, { ChangeEvent, FC, useState } from 'react';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   mainButton: {
-    bottom: 0,
-    right: 0,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
     position: 'fixed',
   },
-});
+}));
 
 const App: FC = () => {
   const classes = useStyles();
