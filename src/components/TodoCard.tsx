@@ -25,14 +25,18 @@ const useStyles = makeStyles(
 
 interface TodoCardProps {
   isSelected?: boolean;
+  onClick: (id: string) => void;
   task: TodoTask;
 }
 
 const TodoCard: FC<TodoCardProps> = props => {
-  const { isSelected, task } = props;
+  const { isSelected, onClick, task } = props;
   const classes = useStyles(props);
   return (
-    <Paper className={clsx(classes.root, { [classes.selected]: isSelected })}>
+    <Paper
+      className={clsx(classes.root, { [classes.selected]: isSelected })}
+      onClick={() => onClick(task.id)}
+    >
       <div className={classes.content}>
         <Typography variant="body1">{task.title}</Typography>
         <Typography variant="caption">{task.description}</Typography>

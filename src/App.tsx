@@ -39,10 +39,22 @@ const App: FC = () => {
       createdAt: '2020-01-13',
     },
   ]);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+
   const switchTab = (_: ChangeEvent<{}>, newTab: number) =>
     setSelectedTab(newTab);
+
+  const toggleSelection = (id: string) => {
+    const updatedIds = new Set(selectedIds);
+    if (updatedIds.has(id)) {
+      updatedIds.delete(id);
+    } else {
+      updatedIds.add(id);
+    }
+    setSelectedIds(updatedIds);
+  };
 
   return (
     <div>
@@ -58,7 +70,12 @@ const App: FC = () => {
         </Tabs>
       </Paper>
       {tasks.map(task => (
-        <TodoCard key={task.id} isSelected={task.id === '1'} task={task} />
+        <TodoCard
+          key={task.id}
+          isSelected={selectedIds.has(task.id)}
+          onClick={toggleSelection}
+          task={task}
+        />
       ))}
       <Fab
         className={classes.mainButton}
